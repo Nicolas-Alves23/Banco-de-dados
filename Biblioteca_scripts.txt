@@ -1,0 +1,198 @@
+CREATE DATABASE Biblioteca_system;
+-- drop database Biblioteca_system
+USE Biblioteca_system;
+
+
+CREATE TABLE associacao(
+	id_associcao INT AUTO_INCREMENT PRIMARY KEY,
+    nivel VARCHAR(255)
+);
+
+CREATE TABLE  usuario(
+	id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    email VARCHAR(255),
+	data_de_registro DATE,
+    associacao INT,
+    FOREIGN KEY (associacao) REFERENCES associacao(id_associcao)
+);
+
+CREATE TABLE  autor(
+	id_autor INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+	data_de_nascimento DATE,
+    biografia TEXT
+);
+
+CREATE TABLE categoria(
+	id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    tipos_de_categoria VARCHAR(255)
+    
+);
+
+CREATE TABLE  livro(
+	id_livro INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255),
+    isbn VARCHAR(20),
+    descricao TEXT,
+    id_autor INT,
+    id_categoria INT,
+    FOREIGN KEY (id_autor) REFERENCES autor(id_autor),
+    FOREIGN KEY  (id_categoria) REFERENCES categoria(id_categoria)
+);
+CREATE TABLE  emprestimos(
+	id_emprestimo INT AUTO_INCREMENT PRIMARY KEY,
+    data_de_inicio DATE,
+    data_de_retorno DATE,
+    id_usuario INT,
+    id_livro INT,
+    FOREIGN KEY  (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY  (id_livro) REFERENCES livro(id_livro)
+);
+
+
+CREATE TABLE  autor_has_livro(
+	id_autor_has_livro INT AUTO_INCREMENT PRIMARY KEY,
+	id_autor INT NOT NULL,
+    id_livro INT NOT NULL,
+    FOREIGN KEY (id_autor) REFERENCES autor(id_autor),
+	FOREIGN KEY (id_livro) REFERENCES livro(id_livro)
+);
+
+
+
+CREATE TABLE  categoria_has_livro(
+	id_categoria_has_livro INT AUTO_INCREMENT PRIMARY KEY,
+	id_categoria INT NOT NULL,
+    id_livro INT NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria),
+	FOREIGN KEY (id_livro) REFERENCES livro(id_livro)
+);
+
+INSERT INTO categoria(tipos_de_categoria)
+VALUES
+('Romance'),
+('Ação'),
+('Suspense'),
+('Ficção'),
+('documentario'),
+('infantil');
+
+INSERT INTO autor(nome, data_de_nascimento, biografia)
+VALUES
+('F. Scott Fitzgerald', '1896-09-24', 'Escritor norte-americano, famoso por seu romance "O Grande Gatsby", que se tornou um ícone da literatura americana.'),
+('Miguel de Cervantes', '1547-09-29', 'Escritor espanhol, autor do clássico "Dom Quixote", considerado uma das maiores obras da literatura mundial.'),
+('Paulo Coelho', '1947-08-24', 'Escritor brasileiro, famoso por seu livro "O Alquimista", que foi traduzido para diversas línguas e vendeu milhões de cópias.'),
+('Jane Austen', '1600-12-17', 'Escritora inglesa conhecida por suas críticas sociais e romances que exploram as relações de classe e casamento, como Orgulho e Preconceito e Razão e Sensibilidade.'),
+('Clarice Lispector', '1000-12-19', 'Escritora brasileira de origem ucraniana, conhecida por suas narrativas introspectivas e complexas, como em A Hora da Estrela e Perto do Coração Selvagem.'),
+('George Orwell', ' 2500-06-19', 'Escritor e jornalista britânico, famoso por suas obras políticas e distópicas, como 1984 e A Revolução dos Bichos, que critiquem totalitarismos e autoritarismos.');
+
+INSERT INTO livro(titulo, isbn, descricao,id_autor, id_categoria)
+VALUES
+('O Grande Gatsby', '978-0743273565', 'Romance sobre a decadência e os sonhos de riqueza na América dos anos 1920, com o enigmático Jay Gatsby como protagonista.', 1, 2),
+('1984', '978-0451524935', 'Distopia que explora um regime totalitário e a vigilância estatal, com foco na luta pela liberdade individual.', 6,1),
+('Matar a Saudade ', '978-8576576873', 'Uma reflexão melancólica sobre memória e perda, acompanhando um homem que revisita o passado.', 5,3),
+('A Revolução dos Bichos ', '978-0451526342', 'Fábula que critica o totalitarismo e os excessos do poder através de animais que tomam o controle de uma fazenda.', 6,4),
+('Dom Quixote', '978-8520910540', ' A história de um cavaleiro enlouquecido que luta contra gigantes imaginários, desafiando a realidade e os ideais de honra.', 2,6),
+('O Alquimista ', '978-0062315007', 'Fábula inspiradora sobre a busca pessoal por sonhos e a descoberta de um tesouro interior.', 3,5);
+
+
+INSERT INTO autor_has_livro (id_autor, id_livro)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4,4),
+    (5,5),
+    (6,6);
+
+
+
+
+INSERT INTO associacao(nivel)
+VALUES
+('Ouro'),
+('Prata'),
+('Bronze');
+
+
+INSERT INTO usuario(nome, email, data_de_registro, associacao)
+VALUES
+('Nicolas', 'bqbvoibovn@gmail.com', '1000-03-20', '3'),
+('Fran', 'hshshghbbgw@gmai.com', '1100-03-20', '2'),
+('Gigi', 'ncwncipqx@gmail.com', '1200-03-20', '1'),
+('Adrian', 'sbvrebiqofb@gmail.com', '1300-03-20', '2'),
+('Bruno', 'iwnxjqurowe@gmail.com', '1400-03-20', '1'),
+('Gabi', 'qwfbwttr@gmail.com', '1500-03-20', '3');
+ 
+ INSERT INTO categoria_has_livro(id_categoria, id_livro)
+ VALUES
+ ('1','1'),
+ ('2','2'),
+ ('3','3'),
+ ('4','4'),
+ ('5','5'),
+ ('6','6');
+ 
+ 
+INSERT INTO emprestimos(data_de_inicio, data_de_retorno,id_usuario, id_livro)
+VALUES
+('2025-02-20', '2025-02-28','1','2'),
+('2025-02-10', '2025-02-25','3','1'),
+('2025-02-03', '2025-02-15','4','3'),
+('2025-02-20', '2025-02-27','5','5'),
+('2025-02-25', '2025-02-27','2','6'),
+('2025-02-2', '2025-02-10','6','4');
+
+
+
+
+SELECT * from emprestimos;
+
+SELECT * from livro;
+
+SELECT * from associacao;
+
+SELECT * from autor;
+
+SELECT * from categoria;
+
+SELECT * from usuario;
+
+SELECT * from categoria_has_livro;
+
+SELECT * from autor_has_livro;
+
+
+select 
+	livro.titulo, 
+    autor.nome  
+from autor_has_livro
+ inner join autor on autor_has_livro.id_autor = autor.id_autor 
+inner join livro on autor_has_livro.id_livro = livro.id_livro;
+
+SELECT 
+	associacao.nivel,
+    usuario.nome
+from usuario
+inner join associacao on usuario.associacao = associacao.id_associcao;
+    
+
+SELECT
+	livro.titulo,
+    autor.nome,
+    categoria.tipos_de_categoria,
+    usuario.nome,
+    emprestimos.data_de_inicio,
+    usuario.email,
+    emprestimos.data_de_retorno
+from emprestimos
+inner join livro on emprestimos.id_livro = livro.id_livro
+inner join autor on livro.id_autor = autor.id_autor
+inner join categoria on livro.id_categoria = categoria.id_categoria
+inner join usuario on emprestimos.id_usuario = usuario.id_usuario
+
+    
+    
+
+
