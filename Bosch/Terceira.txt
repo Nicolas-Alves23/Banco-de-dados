@@ -3,7 +3,7 @@ CREATE DATABASE Cliente_system;
 USE Cliente_system;
 
 CREATE TABLE cliente(
-	id_mae INT AUTO_INCREMENT PRIMARY KEY,
+	id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     rg VARCHAR(50),
     nome VARCHAR(255),
     endereco VARCHAR(255),
@@ -20,11 +20,13 @@ CREATE TABLE produto(
 
 CREATE TABLE compra(
 	id_compra INT AUTO_INCREMENT PRIMARY KEY,
-    compra DOUBLE,
+    compra VARCHAR(255),
     data_compra DATE,
     valor_compra DOUBLE,
     id_produto INT NOT NULL,
-    FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+    id_cliente INT NOT NULL,
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto),
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
 );
 
 CREATE TABLE compra_produto(
@@ -35,26 +37,30 @@ CREATE TABLE compra_produto(
     FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
 );
 
-INSERT INTO compra(compra, data_compra, valor_compra, id_produto)
-VALUES
-	('', '', '', '' ),
-    ('', '', '', '' );
+
     
-INSERT INTO medico(nome, crm, especialidade, telefone)
+INSERT INTO cliente(rg, nome, endereco, telefone)
 VALUES
 	('Nicolas Vilela', 'rgregrqv', 'Partos', '19 99223-6927' ),
     ('dinidnopeq', 'qegererveqv', 'Partos', '19 22344-5909' );
 
-INSERT INTO bebe(data_nascimento, nome, peso_nascimento, altura, id_mae, id_medico)
+
+INSERT INTO produto(nome_produto, tipo, preco, quantidade)
 VALUES
-	('2030-08-10', 'Aurora', '18.18', '0.30' , 1 , 1),
-    ('2025-03-29', 'Adrian Felipe', '3.50', '0.30' , 2 , 2);
+	('Salada', 'Saudavel', '18.18', 5 ),
+    ('Hambureguer', 'Podre', '30.50', 20);
     
-SELECT * FROM mae ;
+    
+INSERT INTO compra(compra, data_compra, valor_compra, id_produto, id_cliente)
+VALUES
+	('Compra saudavel', '2025-03-20', '10.00', 2,1 ),
+    ('Podrão', '2025-03-19', '30.00', '1', 2);
+    
+SELECT * FROM cliente ;
 
-SELECT * FROM medico ;
+SELECT * FROM compra ;
 
-SELECT * FROM bebe ; 
+SELECT * FROM produto ; 
     
 
 

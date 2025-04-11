@@ -1,0 +1,18 @@
+DROP DATABASE IF EXISTS ets_system;
+CREATE DATABASE ets_system;
+USE ets_system;
+
+CREATE TABLE instrutores(
+	id_instrutores INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    turma_apadrinhada INT NOT NULL,
+    aptidao_materia VARCHAR(255),
+    id_disponibilidade_horario VARCHAR(255),
+    carga_horaria INT 
+);
+
+CREATE TABLE materias(
+	id_materia INT AUTO_INCREMENT PRIMARY KEY,
+    carga_horaria INT,
+    semestre INT
+);
