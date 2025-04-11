@@ -1,0 +1,60 @@
+DROP DATABASE IF EXISTS Cliente_system;
+CREATE DATABASE Cliente_system;
+USE Cliente_system;
+
+CREATE TABLE cliente(
+	id_mae INT AUTO_INCREMENT PRIMARY KEY,
+    rg VARCHAR(50),
+    nome VARCHAR(255),
+    endereco VARCHAR(255),
+    telefone VARCHAR(50)
+);
+
+CREATE TABLE produto(
+	id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    nome_produto VARCHAR(255),
+    tipo VARCHAR(500),
+    preco VARCHAR(255),
+    quantidade INT
+);
+
+CREATE TABLE compra(
+	id_compra INT AUTO_INCREMENT PRIMARY KEY,
+    compra DOUBLE,
+    data_compra DATE,
+    valor_compra DOUBLE,
+    id_produto INT NOT NULL,
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+);
+
+CREATE TABLE compra_produto(
+	id_compra_produto INT AUTO_INCREMENT PRIMARY KEY,
+	id_compra INT NOT NULL,
+	id_produto INT NOT NULL,
+	FOREIGN KEY (id_compra) REFERENCES compra(id_compra),
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+);
+
+INSERT INTO compra(compra, data_compra, valor_compra, id_produto)
+VALUES
+	('', '', '', '' ),
+    ('', '', '', '' );
+    
+INSERT INTO medico(nome, crm, especialidade, telefone)
+VALUES
+	('Nicolas Vilela', 'rgregrqv', 'Partos', '19 99223-6927' ),
+    ('dinidnopeq', 'qegererveqv', 'Partos', '19 22344-5909' );
+
+INSERT INTO bebe(data_nascimento, nome, peso_nascimento, altura, id_mae, id_medico)
+VALUES
+	('2030-08-10', 'Aurora', '18.18', '0.30' , 1 , 1),
+    ('2025-03-29', 'Adrian Felipe', '3.50', '0.30' , 2 , 2);
+    
+SELECT * FROM mae ;
+
+SELECT * FROM medico ;
+
+SELECT * FROM bebe ; 
+    
+
+

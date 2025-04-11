@@ -1,0 +1,63 @@
+DROP DATABASE IF EXISTS Bercario_system;
+CREATE DATABASE Bercario_system;
+USE Bercario_system;
+
+CREATE TABLE mae(
+	id_mae INT AUTO_INCREMENT PRIMARY KEY,
+    data_nascimento DATE,
+    nome VARCHAR(255),
+    endereco VARCHAR(255),
+    telefone VARCHAR(50)
+);
+
+CREATE TABLE medico(
+	id_medico INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    crm VARCHAR(500),
+    especialidade VARCHAR(255),
+    telefone VARCHAR(50)
+);
+
+CREATE TABLE bebe(
+	id_bebe INT AUTO_INCREMENT PRIMARY KEY,
+    data_nascimento DATE,
+    nome VARCHAR(255),
+    peso_nascimento DOUBLE,
+    altura DOUBLE,
+    id_mae INT NOT NULL,
+    id_medico INT NOT NULL,
+    FOREIGN KEY (id_mae) REFERENCES mae(id_mae),
+    FOREIGN KEY (id_medico) REFERENCES medico(id_medico)
+);
+
+CREATE TABLE bebe_medico(
+	id_bebe_medico INT AUTO_INCREMENT PRIMARY KEY,
+	id_medico INT NOT NULL,
+	id_bebe INT NOT NULL,
+	FOREIGN KEY (id_medico) REFERENCES medico(id_medico),
+    FOREIGN KEY (id_bebe) REFERENCES bebe(id_bebe)
+);
+
+INSERT INTO mae(data_nascimento,  nome, endereco, telefone)
+VALUES
+	('2007-08-10', 'Giovana', 'Rua Rosa Mariano do Prado, 69', '19 98977-8099' ),
+    ('2025-03-29', 'Adriana felipa', 'hrtht', '13422352352' );
+    
+INSERT INTO medico(nome, crm, especialidade, telefone)
+VALUES
+	('Nicolas Vilela', 'rgregrqv', 'Partos', '19 99223-6927' ),
+    ('dinidnopeq', 'qegererveqv', 'Partos', '19 22344-5909' );
+
+INSERT INTO bebe(data_nascimento, nome, peso_nascimento, altura, id_mae, id_medico)
+VALUES
+	('2030-08-10', 'Aurora', '18.18', '0.30' , 1 , 1),
+    ('2025-03-29', 'Adrian Felipe', '3.50', '0.30' , 2 , 2);
+    
+SELECT * FROM mae ;
+
+SELECT * FROM medico ;
+
+SELECT * FROM bebe ; 
+    
+
+
